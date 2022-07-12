@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  labels:
+    app: server-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: server
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: stephengrider/multi-server
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: server
